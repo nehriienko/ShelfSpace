@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # 1. сервіс бази даних PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: shelfspace-db
+    environment:
+      POSTGRES_DB: shelfspace
+      POSTGRES_USER: shelfspace_user
+      POSTGRES_PASSWORD: secret_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # 2. сервіс нашого Spring Boot програми
+  app:
+    build: .
+    container_name: shelfspace-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db  # програма запуститься тільки після того, як підніметься база даних
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/shelfspace
+      SPRING_DATASOURCE_USERNAME: shelfspace_user
+      SPRING_DATASOURCE_PASSWORD: secret_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+volumes:
+  pgdata:
