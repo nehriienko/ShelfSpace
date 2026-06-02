@@ -37,6 +37,7 @@ http://localhost:8080/swagger-ui/index.html
 
 **Публічний Деплой**
 Застосунок задеплоєно на платформі Render.com та він доступний за посиланням:
+
 Live URL: https://shelfspace-api.onrender.com
 
 Live Swagger UI: https://shelfspace-api.onrender.com/swagger-ui/index.html
